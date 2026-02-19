@@ -1,49 +1,48 @@
-
 # Address Book Challenge
 
-## 📌 Visão Geral
+## 📌 Overview
 
-Este projeto é uma solução para o desafio técnico *Address Book*.
+This project is a solution for the *Address Book* technical challenge.
 
-A aplicação lê um arquivo texto contendo informações de pessoas e retorna:
+The application reads a text file with people's information and shows:
 
-- A quantidade de homens no endereço
-- O nome da pessoa mais velha
-- A diferença de idade em dias entre Bill McKnight e Paul Robinson
+- How many men are in the address book.
+- The name of the oldest person.
+- The age difference (in days) between Bill McKnight and Paul Robinson.
 
-O foco da implementação foi clareza, separação de responsabilidades e testabilidade.
-
----
-
-## ✅ Pré-requisitos
-
-Para executar o projeto é necessário ter:
-
-- **Java 17** instalado na máquina
-- Variável de ambiente `JAVA_HOME` configurada corretamente
-
-### ❗ Maven não é obrigatório
-
-Este projeto utiliza **Maven Wrapper**.
-
-Isso significa que:
-
-- Não é necessário ter o Maven instalado na máquina
-- O próprio projeto baixa automaticamente a versão correta do Maven na primeira execução
-- Garante consistência de versão entre ambientes diferentes
+The main focus was to keep the code clear, well-organized, and easy to test.
 
 ---
 
-## 📂 Estrutura do Projeto
+## ✅ Requirements
+
+To run this project, you need:
+
+- **Java 17** installed on your machine.
+- `JAVA_HOME` environment variable configured.
+
+### ❗ Maven is not required
+
+This project uses **Maven Wrapper**.
+
+This means:
+
+- You don't need to install Maven on your computer.
+- The project automatically downloads the correct Maven version the first time you run it.
+- It ensures everyone uses the same version.
+
+---
+
+## 📂 Project Structure
 
 src  
 ├── main  
 │   ├── java  
 │   │   └── com.challenge  
-│   │       ├── application  
-│   │       ├── domain  
-│   │       ├── parser  
-│   │       └── service  
+│   │       ├── application (App entry point)
+│   │       ├── domain      (Data models)
+│   │       ├── parser      (File reading logic)
+│   │       └── service     (Business rules)
 │   └── resources  
 │       └── AddressBook.txt  
 └── test  
@@ -51,139 +50,107 @@ src
 
 ---
 
-## 🏗 Decisões de Design
+## 🏗 Design Decisions
 
-### Abordagem orientada ao domínio
+### Focus on the data model
+The `Person` entity was created as a Java `record`. This keeps the data immutable (cannot be changed after creation) and the code very simple.
 
-A entidade `Person` foi implementada como um `record` do Java,
-garantindo imutabilidade e deixando o modelo de domínio explícito e conciso.
+### Separation of work
+The project is organized into clear layers:
 
-Validações básicas são feitas na camada de domínio para evitar a criação de objetos inválidos (fail-fast).
+- `application` → Controls the flow and starts the app.
+- `domain` → The data models.
+- `parser` → Responsible for reading and understanding the input file.
+- `service` → Where the main logic (math and rules) happens.
 
----
+This keeps everything decoupled, making it easier to maintain.
 
-### Separação de responsabilidades
+### Input handling
+The app can be run in two ways:
 
-O projeto foi organizado em camadas bem definidas:
-
-- `application` → Orquestração e ponto de entrada da aplicação
-- `domain` → Modelo de domínio
-- `parser` → Responsável por interpretar o arquivo de entrada
-- `service` → Regras de negócio
-
-Essa organização mantém parsing, regras de negócio e fluxo de execução desacoplados, facilitando manutenção e testes.
-
----
-
-### Isolamento da regra de negócio
-
-Toda a lógica de negócio (contagem de homens, identificação do mais velho, cálculo de diferença de idade) está concentrada na classe `AddressBookService`.
-
-Isso permite reutilização da lógica independentemente da forma de entrada dos dados.
+1. By giving a file path as an argument.
+2. By automatically using the `AddressBook.txt` file inside `src/main/resources`.
 
 ---
 
-### Tratamento de entrada
+## ▶ How to Run
 
-A aplicação pode ser executada de duas formas:
+> ⚠️ **Important (Windows / PowerShell)** > In PowerShell, you must use `.\` before `mvnw.cmd` because the terminal does not run commands from the current folder by default.
 
-1. Informando o caminho do arquivo como argumento
-2. Utilizando automaticamente o arquivo `AddressBook.txt` localizado em `src/main/resources`
-
-Caso o arquivo padrão não seja encontrado, a aplicação lança uma exceção clara e interrompe a execução.
-
----
-
-## ▶ Como Executar
-
-> ⚠️ **Importante (Windows / PowerShell)**  
-> No PowerShell é necessário usar `.\` antes do `mvnw.cmd`, pois o terminal não executa comandos do diretório atual por padrão.
-
-### 1️⃣ Gerar o build do projeto
+### 1️⃣ Build the project
 
 Linux/macOS:
-
-    ./mvnw clean package
+```bash
+./mvnw clean package
+```
 
 Windows (PowerShell):
+```powershell
+.\mvnw.cmd clean package
+```
 
-    .\mvnw.cmd clean package
-
-Na primeira execução, o Maven Wrapper fará o download automático da versão correta do Maven.
-
----
-
-### 2️⃣ Executar a aplicação via Maven Wrapper
+### 2️⃣ Run using Maven Wrapper
 
 Linux/macOS:
-
-    ./mvnw exec:java -Dexec.mainClass="com.challenge.Main"
+```bash
+./mvnw exec:java -Dexec.mainClass="com.challenge.Main"
+```
 
 Windows (PowerShell):
+```powershell
+.\mvnw.cmd exec:java "-Dexec.mainClass=com.challenge.Main"
+```
 
-    .\mvnw.cmd exec:java "-Dexec.mainClass=com.challenge.Main"
+### 3️⃣ Run the generated JAR
+
+After building:
+```bash
+java -jar target/address-book-challenge-1.0.0.jar
+```
+
+Or with a custom file:
+```bash
+java -jar target/address-book-challenge-1.0.0.jar path/to/file.txt
+```
 
 ---
 
-### 3️⃣ Executar o JAR gerado
+## 🧪 Running Tests
 
-Após o build:
-
-    java -jar target/address-book-challenge-1.0.0.jar
-
-Ou informando um arquivo personalizado:
-
-    java -jar target/address-book-challenge-1.0.0.jar caminho/para/arquivo.txt
-
----
-
-## 🧪 Executando os Testes
-
-Os testes unitários foram implementados utilizando JUnit 5.
+Tests were created using JUnit 5.
 
 Linux/macOS:
-
-    ./mvnw test
+```bash
+./mvnw test
+```
 
 Windows (PowerShell):
-
-    .\mvnw.cmd test
-
-Executando apenas uma classe específica:
-
-    .\mvnw.cmd -Dtest=AddressBookServiceTest test
+```powershell
+.\mvnw.cmd test
+```
 
 ---
 
-## ⚙ Tecnologias Utilizadas
+## ⚙ Technologies Used
 
 - Java 17
 - Maven (via Maven Wrapper)
 - JUnit 5
-- Uso de `Optional` para evitar tratamento manual de `null`
-- `DateTimeFormatterBuilder` para parsing adequado de datas com ano em dois dígitos
+- Use of `Optional` to handle empty results safely.
 
 ---
 
-## 📌 Possíveis Melhorias
+## 📌 Future Improvements
 
-Caso o projeto fosse evoluído além do escopo do desafio, algumas melhorias possíveis seriam:
+If the project grows, we could add:
 
-- Suporte a outros formatos de entrada (CSV, JSON)
-- Implementação de logging estruturado em vez de `System.out`
-- Tratamento mais detalhado de linhas mal formatadas
-- Processamento em streaming para arquivos muito grandes
-- Inclusão de testes de integração
+- Support for CSV or JSON files.
+- Better error handling for messy files.
+- Faster processing for very large files.
+- Integration tests.
 
 ---
 
-## 🎯 Considerações Finais
+## 🎯 Final Thoughts
 
-O objetivo desta implementação foi manter a solução simples, legível e bem estruturada, evitando complexidade desnecessária.
-
-O foco principal foi:
-
-- Correção
-- Clareza
-- Organização
-- Manutenibilidade
+The goal was to provide a simple, readable, and well-structured solution without making it more complex than necessary.
