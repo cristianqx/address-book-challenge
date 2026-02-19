@@ -1,0 +1,7 @@
+com\challenge\application\AddressBookApplication.class
+com\challenge\domain\entity\Person.class
+com\challenge\domain\enumeration\Gender.class
+com\challenge\service\AddressBookService.class
+com\challenge\parser\ParsingException.class
+com\challenge\Main.class
+com\challenge\parser\PersonParser.class
