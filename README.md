@@ -35,6 +35,7 @@ This means:
 
 ## 📂 Project Structure
 
+```text
 src
 ├── main
 │   ├── java
@@ -45,8 +46,9 @@ src
 │   │       └── service      # Business rules and logic
 │   └── resources
 │       └── AddressBook.txt  # Default data file
-└── test                     # Unit test
-└── java
+└── test
+    └── java                 # Unit tests
+```
 ---
 
 ## 🏗 Design Decisions
@@ -105,12 +107,6 @@ Windows (PowerShell):
 After building:
 ```bash
 java -cp target/address-book-challenge-1.0.0.jar com.challenge.Main
-```
-
-Or with a custom file:
-```bash
-java -jar target/address-book-challenge-1.0.0.jar path/to/file.txt
-
 ```
 
 ---
