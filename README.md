@@ -35,19 +35,18 @@ This means:
 
 ## 📂 Project Structure
 
-src  
-├── main  
-│   ├── java  
-│   │   └── com.challenge  
-│   │       ├── application (App entry point)
-│   │       ├── domain      (Data models)
-│   │       ├── parser      (File reading logic)
-│   │       └── service     (Business rules)
-│   └── resources  
-│       └── AddressBook.txt  
-└── test  
+src
+├── main
+│   ├── java
+│   │   └── com.challenge
+│   │       ├── application  # App orchestration and entry point
+│   │       ├── domain       # Entities (Records) and Enums
+│   │       ├── parser       # Text file parsing logic
+│   │       └── service      # Business rules and logic
+│   └── resources
+│       └── AddressBook.txt  # Default data file
+└── test                     # Unit test
 └── java
-
 ---
 
 ## 🏗 Design Decisions
@@ -105,12 +104,13 @@ Windows (PowerShell):
 
 After building:
 ```bash
-java -jar target/address-book-challenge-1.0.0.jar
+java -cp target/address-book-challenge-1.0.0.jar com.challenge.Main
 ```
 
 Or with a custom file:
 ```bash
 java -jar target/address-book-challenge-1.0.0.jar path/to/file.txt
+
 ```
 
 ---
